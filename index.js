@@ -30,10 +30,15 @@ app.get("/api/:timestamp", (req, res) => {
   let date;
 
   // Check if the timestamp is a valid date or a Unix timestamp
-  if (isNaN(timestamp)) {
-    date = new Date(timestamp);
+  if (timestamp) {
+    if (isNaN(timestamp)) {
+      date = new Date(timestamp);
+    } else {
+      date = new Date(parseInt(timestamp));
+    }
   } else {
-    date = new Date(parseInt(timestamp));
+    // If timestamp is empty, use the current time
+    date = new Date();
   }
 
   // Check if the date is valid
